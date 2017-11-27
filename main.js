@@ -86,8 +86,14 @@ autoUpdater.on('download-progress', (progressObj) => {
   sendStatusToWindow(log_message);
 })
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded');
-  autoUpdater.quitAndInstall();  
+  index = dialog.showMessageBox({
+    message: "アップデートあり",
+    detail: "再起動してインストールできます。",
+    buttons: ["再起動", "後で"]
+  });
+  if (index === 0) {
+    autoUpdater.quitAndInstall();
+  }
 });
 app.on('ready', function() {
   // Create the Menu
